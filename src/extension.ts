@@ -2,8 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as fileUtils from './fileUtils';
-
-const terraformDocsExecutable = 'terraform-docs';
+import * as terraformDocs from './terraformDocs';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -19,7 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('terraform-docs.generate', (fileUri) => {
 
 		if (fileUtils.hasTerraformContent(fileUri.fsPath)) {
-			if (fileUtils.executableIsAvailable(terraformDocsExecutable)) {
+			if (fileUtils.executableIsAvailable(terraformDocs.terraformDocsExecutable)) {
 				vscode.window.showInformationMessage('Generating documentation using terraform-docs!');
 			}
 			else {

@@ -4,17 +4,16 @@ import * as assert from 'assert';
 // as well as import your extension to test it
 import * as vscode from 'vscode';
 import * as fileUtils from '../../fileUtils';
+import * as terraformDocs from '../../terraformDocs';
 
 const path = require('path');
 const testFolder = path.resolve(__dirname, '../../../test-data');
+const fs = require("fs");
 
 suite('Extension Test Suite', () => {
 	vscode.window.showInformationMessage('Start all tests.');
+	deleteFile(testFolder.concat('/sample-terraform-plus-config/README.md'));
 
-	test('Sample test', () => {
-		assert.strictEqual(-1, [1, 2, 3].indexOf(5));
-		assert.strictEqual(-1, [1, 2, 3].indexOf(0));
-	});
 	test('hasTerraformContent test', () => {
 		assert.strictEqual(true, fileUtils.hasTerraformContent(testFolder.concat('/sample-terraform')));
 		assert.strictEqual(false, fileUtils.hasTerraformContent(testFolder.concat('/empty-project')));
@@ -23,4 +22,15 @@ suite('Extension Test Suite', () => {
 		assert.strictEqual(true, fileUtils.executableIsAvailable('terraform-docs'));
 		assert.strictEqual(false, fileUtils.executableIsAvailable('doesnotexist'));
 	});
+	test('execTerraformDocs test', () => {
+		assert.strictEqual(true, terraformDocs.execTerraformDocs(testFolder.concat('/sample-terraform')));
+		assert.strictEqual(true, terraformDocs.execTerraformDocs(testFolder.concat('/sample-terraform-plus-config')));
+		assert.strictEqual(true, fs.existsSync(testFolder.concat('/sample-terraform-plus-config/README.md')));
+	});
 });
+
+function deleteFile(file: string){
+	if (fs.existsSync(file)) {
+		fs.unlinkSync(file);
+	}
+} 
