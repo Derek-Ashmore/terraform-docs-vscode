@@ -21,6 +21,8 @@ To generate documentation for a Terraform project, right-click on the folder con
 
 If you provide a ```.terraform-docs.yml``` configuration file for terraform-docs (to control formatting and output), it will be used in the generation. It must be in located in the folder containing Terraform code to be documented.
 
+If you do not provide a terraform-docs configuration file, markdown will be generated and the output file will be named ```README.md```.
+
 ## System Requirements
 
 > Terraform-Docs must be installed.

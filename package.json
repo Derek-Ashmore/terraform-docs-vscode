@@ -3,11 +3,20 @@
   "displayName": "terraform-docs",
   "description": "Executes Terraform-Docs to generate documentation on Terraform projects",
   "version": "0.0.1",
+  "publisher": "DerekCAshmore",
   "engines": {
     "vscode": "^1.82.0"
   },
   "categories": [
     "Other"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Derek-Ashmore/terraform-docs-vscode.git"
+  },
+  "keywords": [
+    "terraform",
+    "terraform-docs"
   ],
   "activationEvents": [
     "onCommand:terraform-docs.generate"
