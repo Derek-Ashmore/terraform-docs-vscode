@@ -9,15 +9,33 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:terraform-docs.generate"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "terraform-docs.generate",
-        "title": "Generate Terraform Documentation"
+        "title": "Generate Terraform Documentation",
+        "group": "terraform-docs"
       }
-    ]
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "when": "resourceLangId == markdown",
+          "command": "terraform-docs.generate"
+        }
+      ],
+      "explorer/context": [
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "terraform-docs.generate",
+          "group": "terraform-docs@1"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
