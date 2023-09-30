@@ -25,7 +25,12 @@ suite('Extension Test Suite', () => {
 	test('execTerraformDocs test', () => {
 		assert.strictEqual(true, terraformDocs.execTerraformDocs(testFolder.concat('/sample-terraform')));
 		assert.strictEqual(true, terraformDocs.execTerraformDocs(testFolder.concat('/sample-terraform-plus-config')));
+		assert.strictEqual(true, fs.existsSync(testFolder.concat('/sample-terraform/README.md')));
 		assert.strictEqual(true, fs.existsSync(testFolder.concat('/sample-terraform-plus-config/README.md')));
+	});
+	test('configurationExists test', () => {
+		assert.strictEqual(false, terraformDocs.configurationExists(testFolder.concat('/sample-terraform')));
+		assert.strictEqual(true, terraformDocs.configurationExists(testFolder.concat('/sample-terraform-plus-config')));
 	});
 });
 
