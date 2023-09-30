@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "terraform-docs.helloWorld",
-        "title": "Hello World"
+        "command": "terraform-docs.generate",
+        "title": "Generate Terraform Documentation"
       }
     ]
   },
