@@ -32,3 +32,4 @@ Installation instructions are [here](https://github.com/terraform-docs/terraform
 * Provide settings for:
     * terraform-docs executable location
     * terraform-docs configuration location
+    * output terraform-docs error text
