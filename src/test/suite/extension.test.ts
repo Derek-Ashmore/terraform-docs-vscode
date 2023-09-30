@@ -19,4 +19,8 @@ suite('Extension Test Suite', () => {
 		assert.strictEqual(true, fileUtils.hasTerraformContent(testFolder.concat('/sample-terraform')));
 		assert.strictEqual(false, fileUtils.hasTerraformContent(testFolder.concat('/empty-project')));
 	});
+	test('executableIsAvailable test', () => {
+		assert.strictEqual(true, fileUtils.executableIsAvailable('terraform-docs'));
+		assert.strictEqual(false, fileUtils.executableIsAvailable('doesnotexist'));
+	});
 });
