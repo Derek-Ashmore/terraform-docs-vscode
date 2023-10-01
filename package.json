@@ -2,7 +2,7 @@
   "name": "terraform-docs",
   "displayName": "terraform-docs",
   "description": "Executes Terraform-Docs to generate documentation on Terraform projects",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "DerekCAshmore",
   "engines": {
     "vscode": "^1.82.0"
@@ -30,6 +30,16 @@
         "group": "terraform-docs"
       }
     ],
+    "configuration": {
+      "title": "Terraform Docs",
+      "properties": {
+        "terraform-docs.executableBinaryLocation": {
+          "type": ["string", "null"],
+          "default": null,
+          "description": "Folder containing the terraform-docs executable."
+        }
+      }
+    },
     "menus": {
       "commandPalette": [
         {

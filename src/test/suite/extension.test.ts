@@ -32,6 +32,11 @@ suite('Extension Test Suite', () => {
 		assert.strictEqual(false, terraformDocs.configurationExists(testFolder.concat('/sample-terraform')));
 		assert.strictEqual(true, terraformDocs.configurationExists(testFolder.concat('/sample-terraform-plus-config')));
 	});
+	test('formatCommandExcecublePortion test', () => {
+		assert.strictEqual(terraformDocs.terraformDocsExecutable, terraformDocs.formatCommandExcecublePortion(''));
+		assert.strictEqual('/usr/home/jmu/'.concat(terraformDocs.terraformDocsExecutable), terraformDocs.formatCommandExcecublePortion('/usr/home/jmu/'));
+		assert.strictEqual('/usr/home/jmu/'.concat(terraformDocs.terraformDocsExecutable), terraformDocs.formatCommandExcecublePortion('/usr/home/jmu'));
+	});
 });
 
 function deleteFile(file: string){
