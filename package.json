@@ -4,6 +4,7 @@
   "description": "Executes Terraform-Docs to generate documentation on Terraform projects",
   "version": "0.0.2",
   "publisher": "DerekCAshmore",
+  "icon": "docs/images/icon.png",
   "engines": {
     "vscode": "^1.82.0"
   },
