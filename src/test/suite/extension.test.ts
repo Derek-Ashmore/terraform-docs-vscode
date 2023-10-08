@@ -35,8 +35,9 @@ suite('Extension Test Suite', () => {
 	});
 	test('formatCommandExcecublePortion test', () => {
 		assert.strictEqual(terraformDocs.terraformDocsExecutable, terraformDocs.formatCommandExcecublePortion(''));
-		assert.strictEqual('/usr/home/jmu/'.concat(terraformDocs.terraformDocsExecutable), terraformDocs.formatCommandExcecublePortion('/usr/home/jmu/'));
-		assert.strictEqual('/usr/home/jmu/'.concat(terraformDocs.terraformDocsExecutable), terraformDocs.formatCommandExcecublePortion('/usr/home/jmu'));
+		let rightAnswer = '/usr/home/jmu'.concat(path.sep, terraformDocs.terraformDocsExecutable);
+		assert.strictEqual(rightAnswer, terraformDocs.formatCommandExcecublePortion('/usr/home/jmu'.concat(path.sep)));
+		assert.strictEqual(rightAnswer, terraformDocs.formatCommandExcecublePortion('/usr/home/jmu'));
 	});
 });
 
