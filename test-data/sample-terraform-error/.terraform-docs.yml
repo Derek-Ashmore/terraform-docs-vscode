@@ -1,0 +1,12 @@
+formatter: markdown table
+
+output:
+  file: README.md
+  mode: replace
+content: |-
+  {{ include "docs/description.md" }}
+  {{ .Header }}
+  {{ .Requirements }}
+  {{ .Providers }}
+  {{ .Inputs }}
+  {{ .Outputs }}  

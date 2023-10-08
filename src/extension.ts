@@ -19,11 +19,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 		if (fileUtils.hasTerraformContent(fileUri.fsPath)) {
 			if (fileUtils.executableIsAvailable(terraformDocs.terraformDocsExecutable)) {
-				if (terraformDocs.execTerraformDocs(fileUri.fsPath)) {
+				let result: terraformDocs.ExecutionResult = terraformDocs.execTerraformDocs(fileUri.fsPath);
+				if (result.success) {
 					vscode.window.showInformationMessage('Generating documentation using terraform-docs!');
 				}
 				else {
-					vscode.window.showInformationMessage('Error generating documentation!');
+					vscode.window.showErrorMessage('Error generating documentation! error=' + result.error , { modal: true });
 				}
 				
 			}
