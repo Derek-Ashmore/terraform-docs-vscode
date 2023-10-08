@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [v0.0.3](https://github.com/Derek-Ashmore/terraform-docs-vscode/releases/tag/v0.0.3) - 2023-10-08 18:40:28
+
+*No description*
+
 ## [v0.0.2](https://github.com/Derek-Ashmore/terraform-docs-vscode/releases/tag/v0.0.2) - 2023-10-02 06:53:19
 
 Added enhanced user documentation.
