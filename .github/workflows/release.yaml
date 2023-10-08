@@ -1,0 +1,31 @@
+name: "tagged-release"
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Bump Version
+        required: false
+jobs:
+  tagged-release:
+    name: "Tagged Release"
+    runs-on: "ubuntu-latest"
+    env:
+        NODE_VERSION: 16
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install Dependencies
+        run: npm ci
+        
+      - name: Package Extension
+        id: packageExtension
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+            pat: stub
+            dryRun: true
