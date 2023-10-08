@@ -40,6 +40,7 @@ jobs:
             ACCESS_TOKEN: ${{secrets.REPO_GITHUB_PAT}}
             COMMIT_MESSAGE: 'docs(CHANGELOG): update release notes ${{ steps.getVersion.outputs.PACKAGE_VERSION }}'
             BRANCH: ${{ env.BRANCH_NAME }}
+            REGENERATE_COUNT: -1
 
     #   - name: Create Release
     #     id: create_release
