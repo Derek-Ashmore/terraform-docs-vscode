@@ -38,6 +38,16 @@
           "type": ["string", "null"],
           "default": null,
           "description": "Folder containing the terraform-docs executable."
+        },
+        "terraform-docs.executableBinaryFileName": {
+          "type": ["string"],
+          "default": "terraform-docs",
+          "description": "Executable base filename without path (e.g. terraform-docs)."
+        },
+        "terraform-docs.defaultConfigurationFileName": {
+          "type": ["string"],
+          "default": ".terraform-docs.yml",
+          "description": "Default terraform-docs configuration file name without path (e.g. .terraform-docs.yml)."
         }
       }
     },
