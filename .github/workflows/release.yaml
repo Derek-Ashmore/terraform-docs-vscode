@@ -2,9 +2,21 @@ name: "tagged-release"
 on:
   workflow_dispatch:
     inputs:
-        releaseNotes:
-          description: Release Notes
+        includePublishing:
+          description: Publish to Marketplace
+          type: boolean
           required: true
+          default: false
+        includeRelease:
+            description: Create a formal release
+            type: boolean
+            required: true
+            default: false
+        includeReleaseNotes:
+            description: Regenerate Release Notes
+            type: boolean
+            required: true
+            default: true
 
 jobs:
   tagged-release:
@@ -41,17 +53,18 @@ jobs:
 
       - name: Create Release
         id: create_release
+        if: ${{ inputs.includeRelease }}
         uses: actions/create-release@v1
         env:
             GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_PAT }} # This token is provided by Actions, you do not need to create your own token
         with:
             tag_name: ${{ steps.getVersion.outputs.PACKAGE_VERSION }}
             release_name: ${{ steps.getVersion.outputs.PACKAGE_VERSION }}
-            draft: ${{ env.BRANCH_NAME == 'main' && 'true' || 'false' }}
-            prerelease: ${{ env.BRANCH_NAME != 'main' && 'true' || 'false' }}
-            body: ${{ inputs.releaseNotes }}
+            draft: false
+            prerelease: false
 
       - name: Generate Change Log
+        if: ${{ inputs.includeReleaseNotes }}
         uses: BobAnkh/auto-generate-changelog@v1.2.5
         with:
             ACCESS_TOKEN: ${{secrets.REPO_GITHUB_PAT}}
@@ -59,8 +72,9 @@ jobs:
             BRANCH: ${{ env.BRANCH_NAME }}
             REGENERATE_COUNT: -1
 
-    #   - name: Publish to Visual Studio Marketplace
-    #     uses: HaaLeo/publish-vscode-extension@v1
-    #     with:
-    #         pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
-    #         registryUrl: https://marketplace.visualstudio.com
+      - name: Publish to Visual Studio Marketplace
+        if: ${{ inputs.includePublishing }}
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+            pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+            registryUrl: https://marketplace.visualstudio.com
