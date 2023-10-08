@@ -2,7 +2,7 @@
 
 ## [v0.0.2](https://github.com/Derek-Ashmore/terraform-docs-vscode/releases/tag/v0.0.2) - 2023-10-02 06:53:19
 
-*No description*
+Added enhanced user documentation.
 
 ## [v0.0.1](https://github.com/Derek-Ashmore/terraform-docs-vscode/releases/tag/v0.0.1) - 2023-09-30 19:08:01
 
