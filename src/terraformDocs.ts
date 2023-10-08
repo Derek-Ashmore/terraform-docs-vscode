@@ -2,8 +2,8 @@ const fs = require("fs");
 var vscode = require('vscode');
 import * as settings from './settings';
 
-export const terraformDocsExecutable = 'terraform-docs';
-export const terraformDocsConfigurationFile = '.terraform-docs.yml';
+export const terraformDocsExecutable = vscode.workspace.getConfiguration(settings.configuration).get(settings.executableBinaryFileName);
+export const terraformDocsConfigurationFile = vscode.workspace.getConfiguration(settings.configuration).get(settings.defaultConfigurationFileName);
 
 const { execSync } = require('child_process');
 const shell = function(cmd : string) {
