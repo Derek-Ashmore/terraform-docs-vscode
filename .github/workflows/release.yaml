@@ -1,6 +1,10 @@
 name: "tagged-release"
 on:
   workflow_dispatch:
+    inputs:
+        releaseNotes:
+          description: Release Notes
+          required: true
 
 jobs:
   tagged-release:
@@ -35,23 +39,25 @@ jobs:
                 cat package.json | jq -r '.version' 
             )" >> $GITHUB_OUTPUT
 
-      - uses: BobAnkh/auto-generate-changelog@v1.2.5
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+            GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_PAT }} # This token is provided by Actions, you do not need to create your own token
+        with:
+            tag_name: ${{ steps.getVersion.outputs.PACKAGE_VERSION }}
+            release_name: ${{ steps.getVersion.outputs.PACKAGE_VERSION }}
+            draft: ${{ env.BRANCH_NAME == 'main' && 'true' || 'false' }}
+            prerelease: ${{ env.BRANCH_NAME != 'main' && 'true' || 'false' }}
+            body: ${{ inputs.releaseNotes }}
+
+      - name: Generate Change Log
+        uses: BobAnkh/auto-generate-changelog@v1.2.5
         with:
             ACCESS_TOKEN: ${{secrets.REPO_GITHUB_PAT}}
             COMMIT_MESSAGE: 'docs(CHANGELOG): update release notes ${{ steps.getVersion.outputs.PACKAGE_VERSION }}'
             BRANCH: ${{ env.BRANCH_NAME }}
             REGENERATE_COUNT: -1
-
-    #   - name: Create Release
-    #     id: create_release
-    #     uses: actions/create-release@v1
-    #     env:
-    #         GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_PAT }} # This token is provided by Actions, you do not need to create your own token
-    #     with:
-    #         tag_name: ${{ steps.getVersion.outputs.PACKAGE_VERSION }}
-    #         release_name: ${{ steps.getVersion.outputs.PACKAGE_VERSION }}
-    #         draft: false
-    #         prerelease: false
 
     #   - name: Publish to Visual Studio Marketplace
     #     uses: HaaLeo/publish-vscode-extension@v1
