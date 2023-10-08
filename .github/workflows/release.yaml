@@ -2,15 +2,29 @@ name: "tagged-release"
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: Bump Version
-        required: false
+        includePublishing:
+          description: Publish to Marketplace
+          type: boolean
+          required: true
+          default: false
+        includeRelease:
+            description: Create a formal release
+            type: boolean
+            required: true
+            default: false
+        includeReleaseNotes:
+            description: Regenerate Release Notes
+            type: boolean
+            required: true
+            default: true
+
 jobs:
   tagged-release:
     name: "Tagged Release"
     runs-on: "ubuntu-latest"
     env:
         NODE_VERSION: 16
+        BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
 
     steps:
       - uses: actions/checkout@v2
@@ -22,10 +36,45 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci
-        
+
       - name: Package Extension
         id: packageExtension
         uses: HaaLeo/publish-vscode-extension@v1
         with:
             pat: stub
             dryRun: true
+
+      - name: Obtain Version
+        id: getVersion
+        run : |
+            echo "PACKAGE_VERSION=v$(
+                cat package.json | jq -r '.version' 
+            )" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        id: create_release
+        if: ${{ inputs.includeRelease }}
+        uses: actions/create-release@v1
+        env:
+            GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_PAT }} # This token is provided by Actions, you do not need to create your own token
+        with:
+            tag_name: ${{ steps.getVersion.outputs.PACKAGE_VERSION }}
+            release_name: ${{ steps.getVersion.outputs.PACKAGE_VERSION }}
+            draft: false
+            prerelease: false
+
+      - name: Generate Change Log
+        if: ${{ inputs.includeReleaseNotes }}
+        uses: BobAnkh/auto-generate-changelog@v1.2.5
+        with:
+            ACCESS_TOKEN: ${{secrets.REPO_GITHUB_PAT}}
+            COMMIT_MESSAGE: 'docs(CHANGELOG): update release notes ${{ steps.getVersion.outputs.PACKAGE_VERSION }}'
+            BRANCH: ${{ env.BRANCH_NAME }}
+            REGENERATE_COUNT: -1
+
+      - name: Publish to Visual Studio Marketplace
+        if: ${{ inputs.includePublishing }}
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+            pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+            registryUrl: https://marketplace.visualstudio.com
