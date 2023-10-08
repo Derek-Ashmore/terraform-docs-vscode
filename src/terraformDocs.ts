@@ -1,5 +1,6 @@
 const fs = require("fs");
 var vscode = require('vscode');
+const path = require('path');
 import * as settings from './settings';
 
 export const terraformDocsExecutable = vscode.workspace.getConfiguration(settings.configuration).get(settings.executableBinaryFileName);
@@ -29,11 +30,11 @@ export function formatCommandExcecublePortion(settingExecutableBinaryLocation: s
     }
     else {
         command = settingExecutableBinaryLocation;
-        if (command.endsWith('/') || command.endsWith('\\')) {
+        if (command.endsWith(path.sep)) {
             command = command.concat(terraformDocsExecutable);
         }
         else {
-            command = command.concat('/', terraformDocsExecutable);
+            command = command.concat(path.sep, terraformDocsExecutable);
         }
     }
 
