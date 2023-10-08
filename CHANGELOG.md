@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [v0.0.4](https://github.com/Derek-Ashmore/terraform-docs-vscode/releases/tag/v0.0.4) - 2023-10-08 19:22:57
+
+*No description*
+
 ## [v0.0.3](https://github.com/Derek-Ashmore/terraform-docs-vscode/releases/tag/v0.0.3) - 2023-10-08 18:40:28
 
 - Added feature to display generation errors
