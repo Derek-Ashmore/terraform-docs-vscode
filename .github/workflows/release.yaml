@@ -32,3 +32,4 @@ jobs:
             echo "PACKAGE_VERSION=$(
                 cat package.json | jq -r '.version' 
             )" >> $GITHUB_OUTPUT
+            echo $GITHUB_OUTPUT
