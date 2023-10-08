@@ -40,11 +40,27 @@ export function formatCommandExcecublePortion(settingExecutableBinaryLocation: s
     return command;
 }
 
+export type ExecutionResult = {
+    success: boolean,
+    error: string
+};
+
 function execTerraformDocsLocal(folder: string, command: string){
-    try{ shell(`${command}`); return true;}
+    let result: ExecutionResult = {
+        success: true,
+        error: ''
+    };
+
+    try{ shell(`${command}`); return result;}
     catch(error){
+        result.success = false;
         console.error(error);
-        return false;
+        if (error instanceof Error) {
+            result.error = error.message;}
+        else {
+            result.error = String(error);
+        }
+        return result;
     }
 }
 
