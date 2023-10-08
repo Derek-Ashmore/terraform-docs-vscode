@@ -38,7 +38,7 @@ jobs:
       - uses: BobAnkh/auto-generate-changelog@v1.2.5
         with:
             ACCESS_TOKEN: ${{secrets.REPO_GITHUB_PAT}}
-            COMMIT_MESSAGE: 'docs(CHANGELOG): update release notes ${{ steps.packageExtension.outputs.PACKAGE_VERSION }}'
+            COMMIT_MESSAGE: 'docs(CHANGELOG): update release notes ${{ steps.getVersion.outputs.PACKAGE_VERSION }}'
             BRANCH: ${{ env.BRANCH_NAME }}
 
     #   - name: Create Release
@@ -47,8 +47,8 @@ jobs:
     #     env:
     #         GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_PAT }} # This token is provided by Actions, you do not need to create your own token
     #     with:
-    #         tag_name: ${{ steps.packageExtension.outputs.PACKAGE_VERSION }}
-    #         release_name: ${{ steps.packageExtension.outputs.PACKAGE_VERSION }}
+    #         tag_name: ${{ steps.getVersion.outputs.PACKAGE_VERSION }}
+    #         release_name: ${{ steps.getVersion.outputs.PACKAGE_VERSION }}
     #         draft: false
     #         prerelease: false
 
