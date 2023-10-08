@@ -28,8 +28,30 @@ jobs:
             dryRun: true
 
       - name: Obtain Version
+        id: getVersion
         run : |
-            echo "PACKAGE_VERSION=$(
+            echo "PACKAGE_VERSION=v$(
                 cat package.json | jq -r '.version' 
             )" >> $GITHUB_OUTPUT
-            echo $GITHUB_OUTPUT
+
+      - uses: BobAnkh/auto-generate-changelog@v1.2.5
+        with:
+            ACCESS_TOKEN: ${{secrets.GITHUB_TOKEN}}
+            COMMIT_MESSAGE: 'docs(CHANGELOG): update release notes ${{ steps.packageExtension.outputs.PACKAGE_VERSION }}'
+
+    #   - name: Create Release
+    #     id: create_release
+    #     uses: actions/create-release@v1
+    #     env:
+    #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+    #     with:
+    #         tag_name: ${{ steps.packageExtension.outputs.PACKAGE_VERSION }}
+    #         release_name: ${{ steps.packageExtension.outputs.PACKAGE_VERSION }}
+    #         draft: false
+    #         prerelease: false
+
+    #   - name: Publish to Visual Studio Marketplace
+    #     uses: HaaLeo/publish-vscode-extension@v1
+    #     with:
+    #         pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+    #         registryUrl: https://marketplace.visualstudio.com
