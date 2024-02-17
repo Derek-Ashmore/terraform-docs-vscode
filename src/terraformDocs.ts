@@ -2,9 +2,11 @@ const fs = require("fs");
 var vscode = require('vscode');
 const path = require('path');
 import * as settings from './settings';
+import * as fileUtils from './fileUtils';
 
 export const terraformDocsExecutable = vscode.workspace.getConfiguration(settings.configuration).get(settings.executableBinaryFileName);
 export const terraformDocsConfigurationFile = vscode.workspace.getConfiguration(settings.configuration).get(settings.defaultConfigurationFileName);
+export const terraformDocsBinaryLocation = vscode.workspace.getConfiguration(settings.configuration).get(settings.executableBinaryLocation);
 
 const { execSync } = require('child_process');
 const shell = function(cmd : string) {
@@ -13,7 +15,7 @@ const shell = function(cmd : string) {
 
 export function execTerraformDocs(folder: string){
     console.log(vscode.workspace.getConfiguration(settings.configuration));
-    let command = formatCommandExcecublePortion(vscode.workspace.getConfiguration(settings.configuration).get(settings.executableBinaryLocation));
+    let command = formatCommandExcecublePortion(terraformDocsBinaryLocation, terraformDocsExecutable);
     
     if (!configurationExists(folder)){
         command = command.concat(' ', 'markdown table --output-file README.md');
@@ -23,18 +25,23 @@ export function execTerraformDocs(folder: string){
     return execTerraformDocsLocal(folder, command);
 }
 
-export function formatCommandExcecublePortion(settingExecutableBinaryLocation: string){
+export function terraformDocsInstalled(folder: string, executable: string){
+    let command = formatCommandExcecublePortion(folder, executable);
+    return fileUtils.executableIsAvailable(command);
+}
+
+export function formatCommandExcecublePortion(settingExecutableBinaryLocation: string, settingTerraformDocsExecutable: string){
     let command = '';
     if (settingExecutableBinaryLocation === null || settingExecutableBinaryLocation === ''){
-        command = terraformDocsExecutable;
+        command = settingTerraformDocsExecutable;
     }
     else {
         command = settingExecutableBinaryLocation;
         if (command.endsWith(path.sep)) {
-            command = command.concat(terraformDocsExecutable);
+            command = command.concat(settingTerraformDocsExecutable);
         }
         else {
-            command = command.concat(path.sep, terraformDocsExecutable);
+            command = command.concat(path.sep, settingTerraformDocsExecutable);
         }
     }
 
