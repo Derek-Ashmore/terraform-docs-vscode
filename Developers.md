@@ -4,6 +4,8 @@
 
 Detailed instructions are [here](https://code.visualstudio.com/api/working-with-extensions/publishing-extension)
 
+Remember to change the version in ```package.json```
+
 ### Preparing the binary release.
 
 ```

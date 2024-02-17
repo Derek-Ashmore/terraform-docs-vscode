@@ -2,7 +2,7 @@
   "name": "terraform-docs",
   "displayName": "terraform-docs",
   "description": "Executes Terraform-Docs to generate documentation on Terraform projects",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "publisher": "DerekCAshmore",
   "icon": "docs/images/icon.png",
   "engines": {
