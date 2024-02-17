@@ -34,10 +34,16 @@ suite('Extension Test Suite', () => {
 		assert.strictEqual(true, terraformDocs.configurationExists(testFolder.concat('/sample-terraform-plus-config')));
 	});
 	test('formatCommandExcecublePortion test', () => {
-		assert.strictEqual(terraformDocs.terraformDocsExecutable, terraformDocs.formatCommandExcecublePortion(''));
+		assert.strictEqual(terraformDocs.terraformDocsExecutable, terraformDocs.formatCommandExcecublePortion('', terraformDocs.terraformDocsExecutable));
 		let rightAnswer = '/usr/home/jmu'.concat(path.sep, terraformDocs.terraformDocsExecutable);
-		assert.strictEqual(rightAnswer, terraformDocs.formatCommandExcecublePortion('/usr/home/jmu'.concat(path.sep)));
-		assert.strictEqual(rightAnswer, terraformDocs.formatCommandExcecublePortion('/usr/home/jmu'));
+		assert.strictEqual(rightAnswer, terraformDocs.formatCommandExcecublePortion('/usr/home/jmu'.concat(path.sep), terraformDocs.terraformDocsExecutable));
+		assert.strictEqual(rightAnswer, terraformDocs.formatCommandExcecublePortion('/usr/home/jmu', terraformDocs.terraformDocsExecutable));
+	});
+	test('formatCommandExcecublePortion test', () => {
+		assert.strictEqual(true, terraformDocs.terraformDocsInstalled(terraformDocs.terraformDocsBinaryLocation, terraformDocs.terraformDocsExecutable));
+		assert.strictEqual(false, terraformDocs.terraformDocsInstalled('/usr/home/jmu', terraformDocs.terraformDocsExecutable));
+		assert.strictEqual(false, terraformDocs.terraformDocsInstalled(testFolder, terraformDocs.terraformDocsExecutable));
+		assert.strictEqual(false, terraformDocs.terraformDocsInstalled(terraformDocs.terraformDocsBinaryLocation, 'jmu'));
 	});
 });
 
