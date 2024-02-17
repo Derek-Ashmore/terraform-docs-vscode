@@ -18,7 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('terraform-docs.generate', (fileUri) => {
 
 		if (fileUtils.hasTerraformContent(fileUri.fsPath)) {
-			if (fileUtils.executableIsAvailable(terraformDocs.terraformDocsExecutable)) {
+			if (terraformDocs.terraformDocsInstalled(terraformDocs.terraformDocsBinaryLocation, terraformDocs.terraformDocsExecutable)) {
 				vscode.window.showInformationMessage('Generating Terraform documentation.....');
 				let result: terraformDocs.ExecutionResult = terraformDocs.execTerraformDocs(fileUri.fsPath);
 				if (result.success) {
@@ -30,7 +30,7 @@ export function activate(context: vscode.ExtensionContext) {
 				
 			}
 			else {
-				vscode.window.showInformationMessage('Install Terraform-Docs executable and place it in the path!');
+				vscode.window.showInformationMessage('Install Terraform-Docs executable not found. Place it in the path or specify its location in settings!');
 			}
 			
 		}

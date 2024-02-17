@@ -31,12 +31,6 @@ If you do not provide a terraform-docs configuration file, markdown will be gene
 
 Installation instructions are [here](https://github.com/terraform-docs/terraform-docs#installation)
 
-## Supported Settings
-
-| Name | Default | Description |
-|--- |--- |--- |
-| ```executableBinaryLocation``` | ```null``` | Location of the ```terraform-docs``` executable if not located in your path. |
-
 ## Product Roadmap
 
 * Provide settings for:
