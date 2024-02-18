@@ -2,7 +2,7 @@
 
 This visual studio code extension uses [Terraform-Docs](https://github.com/terraform-docs/terraform-docs) to generate documentation for Terraform projects.
 
-Please report any issues using this pluginn [here](https://github.com/Derek-Ashmore/terraform-docs-vscode/issues).
+Please report any issues using this plugin [here](https://github.com/Derek-Ashmore/terraform-docs-vscode/issues).
 
 ## Table of Contents
 <!-- TOC depthFrom:2 depthTo:2 updateOnSave:false -->
