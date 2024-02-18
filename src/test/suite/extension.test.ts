@@ -5,6 +5,7 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as fileUtils from '../../fileUtils';
 import * as terraformDocs from '../../terraformDocs';
+import * as settings from '../../settings';
 
 const path = require('path');
 const testFolder = path.resolve(__dirname, '../../../test-data');
@@ -34,16 +35,16 @@ suite('Extension Test Suite', () => {
 		assert.strictEqual(true, terraformDocs.configurationExists(testFolder.concat('/sample-terraform-plus-config')));
 	});
 	test('formatCommandExcecublePortion test', () => {
-		assert.strictEqual(terraformDocs.terraformDocsExecutable, terraformDocs.formatCommandExcecublePortion('', terraformDocs.terraformDocsExecutable));
-		let rightAnswer = '/usr/home/jmu'.concat(path.sep, terraformDocs.terraformDocsExecutable);
-		assert.strictEqual(rightAnswer, terraformDocs.formatCommandExcecublePortion('/usr/home/jmu'.concat(path.sep), terraformDocs.terraformDocsExecutable));
-		assert.strictEqual(rightAnswer, terraformDocs.formatCommandExcecublePortion('/usr/home/jmu', terraformDocs.terraformDocsExecutable));
+		assert.strictEqual(settings.terraformDocsExecutable(), terraformDocs.formatCommandExcecublePortion('', settings.terraformDocsExecutable()));
+		let rightAnswer = '/usr/home/jmu'.concat(path.sep, settings.terraformDocsExecutable());
+		assert.strictEqual(rightAnswer, terraformDocs.formatCommandExcecublePortion('/usr/home/jmu'.concat(path.sep), settings.terraformDocsExecutable()));
+		assert.strictEqual(rightAnswer, terraformDocs.formatCommandExcecublePortion('/usr/home/jmu', settings.terraformDocsExecutable()));
 	});
 	test('formatCommandExcecublePortion test', () => {
-		assert.strictEqual(true, terraformDocs.terraformDocsInstalled(terraformDocs.terraformDocsBinaryLocation, terraformDocs.terraformDocsExecutable));
-		assert.strictEqual(false, terraformDocs.terraformDocsInstalled('/usr/home/jmu', terraformDocs.terraformDocsExecutable));
-		assert.strictEqual(false, terraformDocs.terraformDocsInstalled(testFolder, terraformDocs.terraformDocsExecutable));
-		assert.strictEqual(false, terraformDocs.terraformDocsInstalled(terraformDocs.terraformDocsBinaryLocation, 'jmu'));
+		assert.strictEqual(true, terraformDocs.terraformDocsInstalled(settings.terraformDocsBinaryLocation(), settings.terraformDocsExecutable()));
+		assert.strictEqual(false, terraformDocs.terraformDocsInstalled('/usr/home/jmu', settings.terraformDocsExecutable()));
+		assert.strictEqual(false, terraformDocs.terraformDocsInstalled(testFolder, settings.terraformDocsExecutable()));
+		assert.strictEqual(false, terraformDocs.terraformDocsInstalled(settings.terraformDocsBinaryLocation(), 'jmu'));
 	});
 });
 

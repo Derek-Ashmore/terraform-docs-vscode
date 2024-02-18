@@ -4,10 +4,6 @@ const path = require('path');
 import * as settings from './settings';
 import * as fileUtils from './fileUtils';
 
-export const terraformDocsExecutable = vscode.workspace.getConfiguration(settings.configuration).get(settings.executableBinaryFileName);
-export const terraformDocsConfigurationFile = vscode.workspace.getConfiguration(settings.configuration).get(settings.defaultConfigurationFileName);
-export const terraformDocsBinaryLocation = vscode.workspace.getConfiguration(settings.configuration).get(settings.executableBinaryLocation);
-
 const { execSync } = require('child_process');
 const shell = function(cmd : string) {
     execSync(cmd, { encoding: 'utf8' });
@@ -15,7 +11,7 @@ const shell = function(cmd : string) {
 
 export function execTerraformDocs(folder: string){
     console.log(vscode.workspace.getConfiguration(settings.configuration));
-    let command = formatCommandExcecublePortion(terraformDocsBinaryLocation, terraformDocsExecutable);
+    let command = formatCommandExcecublePortion(settings.terraformDocsBinaryLocation(), settings.terraformDocsExecutable());
     
     if (!configurationExists(folder)){
         command = command.concat(' ', 'markdown table --output-file README.md');
@@ -73,5 +69,5 @@ function execTerraformDocsLocal(folder: string, command: string){
 }
 
 export function configurationExists(folder: string){
-    return fs.existsSync(folder.concat('/').concat(terraformDocsConfigurationFile));
+    return fs.existsSync(folder.concat('/').concat(settings.terraformDocsConfigurationFile()));
 }

@@ -3,6 +3,7 @@
 import * as vscode from 'vscode';
 import * as fileUtils from './fileUtils';
 import * as terraformDocs from './terraformDocs';
+import * as settings from './settings';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -18,7 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('terraform-docs.generate', (fileUri) => {
 
 		if (fileUtils.hasTerraformContent(fileUri.fsPath)) {
-			if (terraformDocs.terraformDocsInstalled(terraformDocs.terraformDocsBinaryLocation, terraformDocs.terraformDocsExecutable)) {
+			if (terraformDocs.terraformDocsInstalled(settings.terraformDocsBinaryLocation(), settings.terraformDocsExecutable())) {
 				vscode.window.showInformationMessage('Generating Terraform documentation.....');
 				let result: terraformDocs.ExecutionResult = terraformDocs.execTerraformDocs(fileUri.fsPath);
 				if (result.success) {
