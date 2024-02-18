@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [v0.0.6](https://github.com/Derek-Ashmore/terraform-docs-vscode/releases/tag/v0.0.6) - 2024-02-18 09:35:25
+
+*No description*
+
+## [v0.0.5](https://github.com/Derek-Ashmore/terraform-docs-vscode/releases/tag/v0.0.5) - 2024-02-17 21:35:48
+
+*No description*
+
 ## [v0.0.4](https://github.com/Derek-Ashmore/terraform-docs-vscode/releases/tag/v0.0.4) - 2023-10-08 19:22:57
 
 Added new settings for the terraform-docs binary file name and terraform-docs default configuration name.
